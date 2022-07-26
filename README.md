@@ -1,4 +1,8 @@
-# NOTE: This is a fork of Pranesh Ravi's react-diff-viewer with updated @emotion/* dependencies.
+# NOTE: This is a fork of Pranesh Ravi's react-diff-viewer with a few changes listed below
+Forked Changes:
+- Emotion has been updated to 11 using @emotion/* dependencies.
+- Webpack and related dependencies have been updated to support webpack 5.
+- Supports passing in a custom emotion instance rather setting up a new instance every time.
 
 <p align="center">
   <img src='https://i.ibb.co/DKrGhVQ/Frame-1-1.png' width="100%" alt='React Diff Viewer' />
@@ -81,6 +85,7 @@ class Diff extends PureComponent {
 | leftTitle                 | `string`        | `undefined`                    | Column title for left section of the diff in split view. This will be used as the only title in inline view.                                                                                                                                                                                                                                                                                                     |
 | rightTitle                | `string`        | `undefined`                    | Column title for right section of the diff in split view. This will be ignored in inline view.                                                                                                                                                                                                                                                                                                                   |
 | linesOffset               | `number`        | `0`                            | Number to start count code lines from.                                                                                                                                                                                                                                                                                                                                                                           |
+| emotionInstance           | `object`        | `undefined`                    | An (instance of emotion)[https://emotion.sh/docs/@emotion/css#custom-instances] to pass to the styler. This can be used to set up a custom emotion cache for react-diff-viewer.
 
 ## Instance Methods
 

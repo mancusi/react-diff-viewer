@@ -33,7 +33,7 @@ class Example extends React.Component<{}, ExampleState> {
     e: React.MouseEvent<HTMLTableCellElement>,
   ): void => {
     let highlightLine = [id];
-    if (e.shiftKey && this.state.highlightLine.length === 1) {
+    if (e.shiftKey && this.state.highlightLine?.length === 1) {
       const [dir, oldId] = this.state.highlightLine[0].split('-');
       const [newDir, newId] = id.split('-');
       if (dir === newDir) {

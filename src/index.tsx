@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import cn from 'classnames';
+import { Emotion } from '@emotion/css/types/create-instance';
 
 import {
 	computeLineInformation,
@@ -25,47 +26,50 @@ export enum LineNumberPrefix {
 }
 
 export interface ReactDiffViewerProps {
-	// Old value to compare.
-	oldValue: string;
-	// New value to compare.
-	newValue: string;
-	// Enable/Disable split view.
-	splitView?: boolean;
-	// Set line Offset
-	linesOffset?: number;
-	// Enable/Disable word diff.
-	disableWordDiff?: boolean;
-	// JsDiff text diff method from https://github.com/kpdecker/jsdiff/tree/v4.0.1#api
-	compareMethod?: DiffMethod;
-	// Number of unmodified lines surrounding each line diff.
-	extraLinesSurroundingDiff?: number;
-	// Show/hide line number.
-	hideLineNumbers?: boolean;
-	// Show only diff between the two values.
-	showDiffOnly?: boolean;
-	// Render prop to format final string before displaying them in the UI.
-	renderContent?: (source: string) => JSX.Element;
-	// Render prop to format code fold message.
-	codeFoldMessageRenderer?: (
-		totalFoldedLines: number,
-		leftStartLineNumber: number,
-		rightStartLineNumber: number,
-	) => JSX.Element;
-	// Event handler for line number click.
-	onLineNumberClick?: (
-		lineId: string,
-		event: React.MouseEvent<HTMLTableCellElement>,
-	) => void;
-	// Array of line ids to highlight lines.
-	highlightLines?: string[];
-	// Style overrides.
-	styles?: ReactDiffViewerStylesOverride;
-	// Use dark theme.
-	useDarkTheme?: boolean;
-	// Title for left column
-	leftTitle?: string | JSX.Element;
-	// Title for left column
-	rightTitle?: string | JSX.Element;
+  // Old value to compare.
+  oldValue: string;
+  // New value to compare.
+  newValue: string;
+  // Enable/Disable split view.
+  splitView?: boolean;
+  // Set line Offset
+  linesOffset?: number;
+  // Enable/Disable word diff.
+  disableWordDiff?: boolean;
+  // JsDiff text diff method from https://github.com/kpdecker/jsdiff/tree/v4.0.1#api
+  compareMethod?: DiffMethod;
+  // Number of unmodified lines surrounding each line diff.
+  extraLinesSurroundingDiff?: number;
+  // Show/hide line number.
+  hideLineNumbers?: boolean;
+  // Show only diff between the two values.
+  showDiffOnly?: boolean;
+  // Render prop to format final string before displaying them in the UI.
+  renderContent?: (source: string) => JSX.Element;
+  // Render prop to format code fold message.
+  codeFoldMessageRenderer?: (
+    totalFoldedLines: number,
+    leftStartLineNumber: number,
+    rightStartLineNumber: number
+  ) => JSX.Element;
+  // Event handler for line number click.
+  onLineNumberClick?: (
+    lineId: string,
+    event: React.MouseEvent<HTMLTableCellElement>
+  ) => void;
+  // Array of line ids to highlight lines.
+  highlightLines?: string[];
+  // Style overrides.
+  styles?: ReactDiffViewerStylesOverride;
+  // Use dark theme.
+  useDarkTheme?: boolean;
+  // Title for left column
+  leftTitle?: string | JSX.Element;
+  // Title for left column
+  rightTitle?: string | JSX.Element;
+  // An instance of emotion usually created from @emotion/css/create-instance if any
+  // instance-specific settings are desired to be overwritten.
+  emotionInstance?: Emotion;
 }
 
 export interface ReactDiffViewerState {
@@ -156,6 +160,7 @@ class DiffViewer extends React.Component<
 	private computeStyles: (
 		styles: ReactDiffViewerStylesOverride,
 		useDarkTheme: boolean,
+		emotionInstance?: Emotion,
 	) => ReactDiffViewerStyles = memoize(computeStyles);
 
 	/**
@@ -555,7 +560,7 @@ class DiffViewer extends React.Component<
 			throw Error('"oldValue" and "newValue" should be strings');
 		}
 
-		this.styles = this.computeStyles(this.props.styles, useDarkTheme);
+		this.styles = this.computeStyles(this.props.styles, useDarkTheme, this.props.emotionInstance);
 		const nodes = this.renderDiff();
 		const colSpanOnSplitView = hideLineNumbers ? 2 : 3;
 		const colSpanOnInlineView = hideLineNumbers ? 2 : 4;

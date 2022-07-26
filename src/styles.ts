@@ -1,4 +1,4 @@
-import { css, cx } from '@emotion/css';
+import { css as defaultCss, cx as defaultCx } from '@emotion/css';
 import { CSSInterpolation } from '@emotion/serialize';
 
 export interface ReactDiffViewerStyles {
@@ -78,10 +78,13 @@ export interface ReactDiffViewerStylesOverride {
 	splitView?: CSSInterpolation;
 }
 
+const defaultEmotion = { css: defaultCss, cx: defaultCx }
 export default (
 	styleOverride: ReactDiffViewerStylesOverride,
 	useDarkTheme = false,
+	emotion = defaultEmotion,
 ): ReactDiffViewerStyles => {
+	const { css, cx } = emotion;
 	const { variables: overrideVariables = {}, ...styles } = styleOverride;
 
 	const themeVariables = {
