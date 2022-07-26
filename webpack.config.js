@@ -17,7 +17,9 @@ module.exports = {
     filename: '[name].js',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'examples/dist'),
+    static: {
+directory: path.resolve(__dirname, 'examples/dist'),
+    },
     port: 8000,
     hot: true,
   },

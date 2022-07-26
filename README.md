@@ -1,3 +1,4 @@
+# NOTE: This is a fork of Pranesh Ravi's react-diff-viewer with updated @emotion/* dependencies.
 
 <p align="center">
   <img src='https://i.ibb.co/DKrGhVQ/Frame-1-1.png' width="100%" alt='React Diff Viewer' />
